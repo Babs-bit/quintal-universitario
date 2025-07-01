@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quintal Universitário - O Seu Fim de Semana Começa na Quinta</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
+    
+    <!-- Custom Styles and Animations -->
+    <style>
+        /* Aplicando as fontes base */
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #1a1a1a;
+            color: #f0f0f0;
+            overflow-x: hidden;
+        }
+
+        /* Fonte customizada para títulos principais */
+        .font-anton {
+            font-family: 'Anton', sans-serif;
+        }
+
+        /* Efeito de brilho (Glow) para os elementos neon */
+        .text-glow-blue {
+            text-shadow: 0 0 5px rgba(0, 255, 255, 0.8), 
+                         0 0 10px rgba(0, 255, 255, 0.6), 
+                         0 0 20px rgba(0, 255, 255, 0.4), 
+                         0 0 40px rgba(0, 255, 255, 0.2);
+        }
+        .text-glow-pink {
+            text-shadow: 0 0 5px rgba(255, 0, 255, 0.8), 
+                         0 0 10px rgba(255, 0, 255, 0.6), 
+                         0 0 20px rgba(255, 0, 255, 0.4);
+        }
+        .btn-glow {
+             box-shadow: 0 0 8px rgba(0, 255, 255, 0.7), 
+                         0 0 16px rgba(0, 255, 255, 0.5),
+                         inset 0 0 5px rgba(0, 255, 255, 0.6);
+             transition: all 0.3s ease-in-out;
+        }
+        .btn-glow:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 12px rgba(0, 255, 255, 1), 
+                         0 0 24px rgba(0, 255, 255, 0.8),
+                         inset 0 0 8px rgba(0, 255, 255, 1);
+        }
+
+        /* Animação de pulsação para a logo principal */
+        @keyframes pulse-logo {
+            0%, 100% {
+                transform: scale(1);
+                text-shadow: 0 0 8px rgba(0, 255, 255, 0.7), 0 0 16px rgba(0, 255, 255, 0.5);
+            }
+            50% {
+                transform: scale(1.03);
+                text-shadow: 0 0 12px rgba(0, 255, 255, 1), 0 0 24px rgba(0, 255, 255, 0.8), 0 0 32px rgba(255, 0, 255, 0.3);
+            }
+        }
+        .animate-pulse-logo {
+            animation: pulse-logo 5s ease-in-out infinite;
+        }
+
+        /* Animação de batida (tum-tum) para "Universitário" e Hashtag */
+        @keyframes heartbeat {
+            0% { transform: scale(1); }
+            10% { transform: scale(1.08); }
+            20% { transform: scale(1); }
+            30% { transform: scale(1.08); }
+            40% { transform: scale(1); }
+            100% { transform: scale(1); }
+        }
+        .animate-heartbeat {
+            animation: heartbeat 2.5s ease-in-out infinite;
+            animation-delay: 0.5s;
+        }
+        
+        /* Vídeo de fundo */
+        #video-bg {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            z-index: -1;
+            transform: translateX(-50%) translateY(-50%);
+            object-fit: cover;
+        }
+        .video-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(15, 15, 31, 0.4) 0%, rgba(15, 15, 31, 0.9) 85%, #1a1a1a 100%);
+            z-index: 0;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* LUZES NEON EM MOVIMENTO */
+        .neon-line {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            width: 200%;
+            height: 3px;
+            border-radius: 5px;
+            opacity: 0;
+            z-index: 0;
+        }
+        .line-1 {
+            background: #00ffff;
+            box-shadow: 0 0 5px #00ffff, 0 0 10px #00ffff, 0 0 15px #00ffff;
+            animation: animate-line-1 15s linear infinite;
+        }
+        .line-2 {
+            background: #ff00ff;
+            box-shadow: 0 0 5px #ff00ff, 0 0 10px #ff00ff, 0 0 15px #ff00ff;
+            animation: animate-line-2 20s linear infinite;
+            animation-delay: -7s;
+        }
+        .line-3 {
+            background: #9a00ff;
+            box-shadow: 0 0 5px #9a00ff, 0 0 10px #9a00ff, 0 0 15px #9a00ff;
+            animation: animate-line-3 18s linear infinite;
+            animation-delay: -3s;
+        }
+
+        @keyframes animate-line-1 {
+            0% { transform: translate(-50%, -50%) rotate(-45deg) translateX(-100%); opacity: 0.7; }
+            50% { opacity: 0.3; }
+            100% { transform: translate(-50%, -50%) rotate(-45deg) translateX(100%); opacity: 0.7; }
+        }
+        @keyframes animate-line-2 {
+            0% { transform: translate(-50%, -50%) rotate(30deg) translateX(-100%); opacity: 0.6; }
+            50% { opacity: 0.2; }
+            100% { transform: translate(-50%, -50%) rotate(30deg) translateX(100%); opacity: 0.6; }
+        }
+        @keyframes animate-line-3 {
+            0% { transform: translate(-50%, -50%) rotate(60deg) translateX(100%); opacity: 0.5; }
+            50% { opacity: 0.2; }
+            100% { transform: translate(-50%, -50%) rotate(60deg) translateX(-100%); opacity: 0.5; }
+        }
+
+        /* MOLDURA NEON ANIMADA PARA O FLYER */
+        @property --angle {
+            syntax: '<angle>';
+            initial-value: 0deg;
+            inherits: false;
+        }
+
+        .flyer-frame {
+            position: relative;
+            padding: 4px; /* Espessura da borda */
+            border-radius: 0.75rem; /* Deve ser maior que o radius da imagem */
+            background: conic-gradient(from var(--angle), #151515, #9a00ff, #ff00ff, #00ffff, #ff00ff, #9a00ff, #151515);
+            animation: rotate-frame 5s linear infinite;
+            box-shadow: 0 0 20px rgba(255, 0, 255, 0.3);
+        }
+
+        @keyframes rotate-frame {
+            to {
+                --angle: 360deg;
+            }
+        }
+
+        .flyer-frame > img {
+            border-radius: 0.5rem; /* Menor que o frame para a borda aparecer */
+        }
+        
+        /* ESTILOS PARA O ACORDEÃO DE DETALHES */
+        .details-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-in-out;
+        }
+
+    </style>
+</head>
+<body class="bg-[#1a1a1a]">
+
+    <!-- BOTÃO FLUTUANTE DO WHATSAPP -->
+    <a href="https://wa.me/5511999999999?text=Olá!%20Quero%20saber%20mais%20sobre%20os%20ingressos%20do%20Quintal%20Universitário!" target="_blank" class="fixed bottom-5 right-5 z-50 bg-green-500 p-3 rounded-full shadow-lg hover:scale-110 transition-transform">
+        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-message-circle"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
+    </a>
+
+    <!-- HEADER ATUALIZADO -->
+    <header class="fixed top-0 left-0 w-full bg-[#1a1a1a]/70 backdrop-blur-md z-40 transition-all duration-300">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <h1 class="text-xl md:text-2xl font-bold tracking-wider text-glow-pink">#VEMPROQUINTAL</h1>
+            <nav class="hidden md:flex items-center space-x-8">
+                <a href="#proximo-role" class="text-gray-300 hover:text-[#00ffff] transition-colors duration-300">Eventos</a>
+                <a href="#galeria" class="text-gray-300 hover:text-[#00ffff] transition-colors duration-300">Galeria</a>
+                <a href="#manifesto" class="text-gray-300 hover:text-[#00ffff] transition-colors duration-300">Sobre Nós</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <!-- SEÇÃO HERO -->
+        <section id="hero" class="relative min-h-screen flex items-center justify-center text-center overflow-hidden">
+            <div class="video-overlay"></div>
+            <div class="neon-line line-1"></div>
+            <div class="neon-line line-2"></div>
+            <div class="neon-line line-3"></div>
+            
+            <video autoplay muted loop playsinline id="video-bg">
+                <source src="https://assets.mixkit.co/videos/preview/mixkit-a-crowd-of-people-at-a-concert-applauding-42336-large.mp4" type="video/mp4">
+                Seu navegador não suporta vídeos.
+            </video>
+            <div class="hero-content container mx-auto px-6">
+                <div class="animate-pulse-logo">
+                    <h1 class="font-anton text-7xl md:text-9xl text-white uppercase tracking-widest text-glow-blue">
+                        QUINTAL
+                    </h1>
+                </div>
+                <p class="animate-heartbeat text-lg md:text-xl text-gray-200 uppercase tracking-[.2em] -mt-1 md:-mt-2">Universitário</p>
+                
+                <p class="text-xl md:text-2xl mt-8 text-gray-200">
+                    O seu fim de semana começa na quinta
+                </p>
+                
+                <a href="#proximo-role" class="mt-10 inline-block font-bold text-lg md:text-xl uppercase px-10 py-4 bg-[#00ffff] text-[#1a1a1a] rounded-lg btn-glow">
+                    Confira os Próximos Rolês
+                </a>
+            </div>
+        </section>
+
+        <!-- SEÇÃO PRÓXIMO EVENTO - NOVO LAYOUT -->
+        <section id="proximo-role" class="py-20 md:py-32 bg-[#151515]">
+            <div class="container mx-auto px-6 flex flex-col items-center justify-center gap-10 md:gap-12">
+                <div class="flex flex-col md:flex-row items-center justify-center gap-10 md:gap-16 w-full">
+                    <!-- Coluna da Esquerda: Flyer com Moldura -->
+                    <div class="w-full max-w-sm md:w-2/5 transform transition-transform duration-500 hover:scale-105">
+                        <div class="flyer-frame">
+                            <img src="https://images.unsplash.com/photo-1514525253161-7a46d19cd819?q=80&w=987&auto=format&fit=crop" 
+                                 alt="Flyer do Evento Quintal Neon" 
+                                 class="w-full"
+                                 onerror="this.onerror=null;this.src='https://placehold.co/800x1067/1a1a1a/ffffff?text=Quintal';">
+                        </div>
+                    </div>
+
+                    <!-- Coluna da Direita: Informações -->
+                    <div class="w-full md:w-3/5 text-center md:text-left">
+                        <h3 class="font-anton text-4xl md:text-5xl text-white uppercase">
+                            Quintal Neon <span class="text-[#00ffff]">(Open Bar)</span>
+                        </h3>
+                        
+                        <div class="mt-6 space-y-3 text-lg text-gray-300">
+                            <p class="flex items-center justify-center md:justify-start gap-3">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-[#00ffff]"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                                <span id="event-date">Carregando data...</span>
+                            </p>
+                            <p class="flex items-center justify-center md:justify-start gap-3">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-[#00ffff]"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                                <span>Espaço Even, Rua das Festas, 123</span>
+                            </p>
+                        </div>
+
+                        <p id="days-countdown" class="font-anton text-3xl md:text-4xl text-white my-8">
+                            FALTAM <span class="text-[#00ffff] text-glow-blue">00</span> DIAS
+                        </p>
+
+                        <!-- Grupo CTA: Botão e Lote -->
+                        <div class="inline-block text-center md:text-left">
+                            <a href="#" class="block font-bold text-lg uppercase px-12 py-4 bg-[#00ffff] text-[#1a1a1a] rounded-lg btn-glow">
+                                Garanta seu Ingresso
+                            </a>
+                            
+                            <p class="mt-4 text-yellow-400 font-bold animate-pulse text-center">
+                                Lote Promocional Limitado
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Detalhes do Evento e Informações Adicionais -->
+                <div class="w-full max-w-4xl mt-8 border-t border-gray-700 pt-8 text-center">
+                    <!-- Botão para mostrar/ocultar detalhes -->
+                    <button id="details-toggle" class="inline-flex items-center gap-2 group">
+                        <span class="font-bold text-lg text-[#00ffff] group-hover:text-white transition-colors duration-300">Detalhes do evento</span>
+                        <svg id="details-arrow" class="w-6 h-6 text-[#00ffff] group-hover:text-white transition-transform duration-300" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
+                        </svg>
+                    </button>
+                    <!-- Conteúdo dos Detalhes (Oculto por padrão) -->
+                    <div id="event-details" class="details-content mt-4">
+                        <p class="text-gray-300 max-w-2xl mx-auto">
+                            Nesta edição, nosso <span class="font-bold text-white">Open Bar</span> conta com Cerveja, Vodka, Gin, Energético, Refrigerante & Água. O som fica por conta de <span class="font-bold text-white">DJ Arana (Funk)</span>, <span class="font-bold text-white">Banda X (Sertanejo)</span> e <span class="font-bold text-white">DJ GBR (Eletrônico)</span>. Prepare-se também para nossas atrações especiais: Tinta Neon, Copos Personalizados e Sorteio de Brindes durante a noite!
+                        </p>
+                    </div>
+
+                    <div class="mt-8 text-xs text-gray-400 space-y-1">
+                         <p>* Proibida a entrada de menores de 18 anos.</p>
+                         <p>* Obrigatória apresentação de carteira universitária.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SEÇÃO GALERIA TEASER ATUALIZADA -->
+        <section id="galeria" class="py-20 md:py-32">
+            <div class="container mx-auto px-6">
+                <h3 class="font-anton text-4xl md:text-6xl text-center text-white mb-12">
+                    Espia o que rolou nas <span class="text-[#ff00ff] text-glow-pink">últimas edições</span>
+                </h3>
+                <!-- Novo Layout da Galeria -->
+                <div class="grid grid-cols-2 md:grid-cols-4 auto-rows-[250px] gap-4">
+                    <div class="col-span-2 row-span-2 rounded-lg overflow-hidden transform hover:scale-105 transition-transform duration-300">
+                        <img src="https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?q=80&w=1170&auto=format&fit=crop" alt="DJ animando a festa" class="w-full h-full object-cover" onerror="this.onerror=null;this.src='https://placehold.co/1170x780/1a1a1a/ffffff?text=Quintal';">
+                    </div>
+                    <div class="rounded-lg overflow-hidden transform hover:scale-105 transition-transform duration-300">
+                        <img src="https://images.unsplash.com/photo-1519751444424-70023b8a78b3?q=80&w=987&auto=format&fit=crop" alt="Jovem se divertindo com confetes" class="w-full h-full object-cover" onerror="this.onerror=null;this.src='https://placehold.co/987x1480/1a1a1a/ffffff?text=Quintal';">
+                    </div>
+                    <div class="col-span-1 row-span-2 rounded-lg overflow-hidden transform hover:scale-105 transition-transform duration-300">
+                        <img src="https://images.unsplash.com/photo-1543321269-9d868a6aa35a?q=80&w=987&auto=format&fit=crop" alt="Pessoas dançando sob luzes neon" class="w-full h-full object-cover" onerror="this.onerror=null;this.src='https://placehold.co/987x1480/1a1a1a/ffffff?text=Quintal';">
+                    </div>
+                    <div class="rounded-lg overflow-hidden transform hover:scale-105 transition-transform duration-300">
+                        <img src="https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?q=80&w=1170&auto=format&fit=crop" alt="DJ com a multidão ao fundo" class="w-full h-full object-cover" onerror="this.onerror=null;this.src='https://placehold.co/1170x780/1a1a1a/ffffff?text=Quintal';">
+                    </div>
+                    <div class="col-span-2 rounded-lg overflow-hidden transform hover:scale-105 transition-transform duration-300">
+                        <img src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?q=80&w=1170&auto=format&fit=crop" alt="Multidão em um show" class="w-full h-full object-cover" onerror="this.onerror=null;this.src='https://placehold.co/1170x780/1a1a1a/ffffff?text=Quintal';">
+                    </div>
+                    <div class="rounded-lg overflow-hidden transform hover:scale-105 transition-transform duration-300">
+                        <img src="https://images.unsplash.com/photo-1582732274142-2d441a541463?q=80&w=987&auto=format&fit=crop" alt="Jovem com óculos neon" class="w-full h-full object-cover" onerror="this.onerror=null;this.src='https://placehold.co/987x1480/1a1a1a/ffffff?text=Quintal';">
+                    </div>
+                     <div class="rounded-lg overflow-hidden transform hover:scale-105 transition-transform duration-300">
+                        <img src="https://images.unsplash.com/photo-1524368535928-5b5e00ddc76b?q=80&w=1170&auto=format&fit=crop" alt="Mãos para o alto na festa" class="w-full h-full object-cover" onerror="this.onerror=null;this.src='https://placehold.co/1170x780/1a1a1a/ffffff?text=Quintal';">
+                    </div>
+                </div>
+                <div class="text-center mt-12">
+                    <a href="#" class="font-bold text-lg uppercase px-8 py-3 bg-transparent border-2 border-[#ff00ff] text-[#ff00ff] rounded-lg hover:bg-[#ff00ff] hover:text-black transition-all duration-300">
+                        Ver galeria completa
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- SEÇÃO MANIFESTO ATUALIZADA -->
+        <section id="manifesto" class="py-20 md:py-32 bg-[#151515]">
+            <div class="container mx-auto px-6 max-w-3xl text-center">
+                <h3 class="font-anton text-5xl md:text-6xl text-[#00ffff] text-glow-blue uppercase mb-8">Nosso Quintal</h3>
+                <p class="text-xl md:text-2xl leading-relaxed text-gray-200">
+                    Nós simplesmente criamos o rolê que a gente sempre quis ir. Nascemos da vontade de ter um lugar para chamar de nosso. Um ponto de encontro onde a quinta-feira deixa de ser só mais um dia para se tornar o <strong>nosso dia</strong>. Toda semana, um novo capítulo, uma nova história.
+                </p>
+                <p class="mt-8 text-3xl font-bold text-glow-pink animate-heartbeat">#vemproquintal</p>
+            </div>
+        </section>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-black py-12">
+        <div class="container mx-auto px-6 text-center text-gray-400">
+            <p class="text-2xl font-bold text-white mb-4">QUINTAL UNIVERSITÁRIO</p>
+            <div class="flex justify-center space-x-6 my-4">
+                <a href="#" class="hover:text-white">Instagram</a>
+                <a href="#" class="hover:text-white">TikTok</a>
+                <a href="#" class="hover:text-white">Contato</a>
+            </div>
+            <p class="text-sm mt-6">&copy; 2024 Quintal Universitário. Todos os direitos reservados.</p>
+            <p class="text-xs text-gray-600 mt-2">Desenvolvido com a energia da festa.</p>
+        </div>
+    </footer>
+
+    <script>
+        // SCRIPT DO CONTADOR REGRESSIVO E DATA
+        (function () {
+            function getNextThursday() {
+                const now = new Date();
+                const today = now.getDay(); // 0=Sun, 4=Thu
+                const daysUntilThursday = (4 - today + 7) % 7;
+                
+                const nextThursday = new Date(now);
+                nextThursday.setDate(now.getDate() + daysUntilThursday);
+                nextThursday.setHours(22, 0, 0, 0);
+
+                if (daysUntilThursday === 0 && now.getTime() > nextThursday.getTime()) {
+                    nextThursday.setDate(now.getDate() + 7);
+                }
+                return nextThursday;
+            }
+
+            const countdownDate = getNextThursday();
+            const eventDateElement = document.getElementById("event-date");
+            const countdownElement = document.getElementById("days-countdown");
+
+            // Formatando a data em português
+            if (eventDateElement) {
+                const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+                eventDateElement.textContent = countdownDate.toLocaleDateString('pt-BR', options);
+            }
+
+            // Atualizando o contador
+            if (countdownElement) {
+                const updateCountdown = () => {
+                    const now = new Date().getTime();
+                    const distance = countdownDate.getTime() - now;
+
+                    if (distance < 0) {
+                        countdownElement.innerHTML = 'O EVENTO É HOJE!';
+                        return;
+                    }
+
+                    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                    countdownElement.innerHTML = `FALTAM <span class="text-[#00ffff] text-glow-blue">${String(days).padStart(2, '0')}</span> DIAS`;
+                };
+                updateCountdown();
+                setInterval(updateCountdown, 1000 * 60 * 60); // Atualiza a cada hora é suficiente
+            }
+        })();
+
+        // SMOOTH SCROLL PARA ÂNCORAS
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetElement = document.querySelector(this.getAttribute('href'));
+                if (targetElement) {
+                    targetElement.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+        
+        // LÓGICA DO ACORDEÃO DE DETALHES
+        const detailsToggle = document.getElementById('details-toggle');
+        const eventDetails = document.getElementById('event-details');
+        const detailsArrow = document.getElementById('details-arrow');
+
+        if (detailsToggle) {
+            detailsToggle.addEventListener('click', () => {
+                detailsArrow.classList.toggle('rotate-180');
+                if (eventDetails.style.maxHeight) {
+                    eventDetails.style.maxHeight = null;
+                } else {
+                    eventDetails.style.maxHeight = eventDetails.scrollHeight + 'px';
+                }
+            });
+        }
+    </script>
+
+</body>
+</html>
